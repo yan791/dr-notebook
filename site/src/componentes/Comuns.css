@@ -1,0 +1,120 @@
+/* ---------- chamada final ---------- */
+.chamada {
+  overflow: hidden;
+  text-align: center;
+  padding-block: clamp(110px, 14vw, 190px);
+}
+.chamada::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -30%;
+  width: min(1100px, 120vw);
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(26, 107, 240, 0.32), transparent);
+  pointer-events: none;
+}
+.chamada-ecg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  width: 100%;
+  height: 160px;
+  transform: translateY(-50%);
+  opacity: 0.4;
+}
+.chamada-conteudo {
+  position: relative;
+  max-width: 860px;
+}
+.chamada .titulo-secao {
+  font-size: clamp(2.4rem, 5.6vw, 5rem);
+}
+.chamada .lede {
+  margin-inline: auto;
+}
+.chamada-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 34px;
+}
+.chamada-acoes .botao--zap {
+  min-height: 60px;
+  padding: 0 30px;
+  font-size: 1.15rem;
+}
+
+/* ---------- rodapé ---------- */
+.rodape {
+  padding: 72px var(--margem) 34px;
+  border-top: 1px solid var(--linha);
+  background: rgba(4, 13, 34, 0.75);
+  font-size: 0.92rem;
+  color: var(--texto-2);
+}
+.rodape-grade {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1.2fr 1.3fr;
+  gap: 40px;
+}
+.rodape-logo {
+  width: 190px;
+  height: auto;
+  overflow: visible;
+}
+.rodape-marca p {
+  max-width: 36ch;
+  margin: 18px 0 0;
+}
+.rodape .rotulo {
+  margin: 0 0 14px;
+  color: var(--texto-2);
+}
+.rodape ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.rodape a {
+  text-decoration: none;
+  transition: color 0.3s var(--ease);
+}
+.rodape a:hover,
+.rodape a:focus-visible {
+  color: var(--texto);
+}
+.rodape-base {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px 30px;
+  margin-top: 56px;
+  padding-top: 24px;
+  border-top: 1px solid var(--linha);
+  font-size: 0.82rem;
+}
+.rodape-base p {
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .rodape-grade {
+    grid-template-columns: 1fr 1fr;
+  }
+  .rodape-marca {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 520px) {
+  .rodape-grade {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}

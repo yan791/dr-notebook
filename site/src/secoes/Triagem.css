@@ -1,0 +1,373 @@
+.triagem {
+  padding-top: clamp(110px, 12vw, 170px);
+}
+.triagem::before {
+  /* luz da recepção vindo de cima, como a do palco */
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 60%;
+  background: radial-gradient(60% 70% at 30% 0%, rgba(26, 107, 240, 0.18), transparent 70%);
+  pointer-events: none;
+}
+.triagem-grade {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: start;
+}
+
+/* ---------- passos ---------- */
+.tr-passo {
+  margin: 38px 0 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+.tr-passo legend,
+.tr-legenda {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 0;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.tr-legenda em {
+  font-style: normal;
+  font-weight: 500;
+  color: var(--texto-2);
+}
+.tr-num {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--linha-2);
+  font-family: var(--f-mono);
+  font-size: 0.78rem;
+  color: var(--texto-2);
+  transition: background-color 0.35s var(--ease), border-color 0.35s var(--ease), color 0.35s var(--ease);
+}
+.tr-num--ok {
+  background: var(--azul);
+  border-color: var(--azul);
+  color: #fff;
+}
+
+.tr-aparelhos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.tr-aparelho {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 18px 18px 16px;
+  border-radius: 18px;
+  border: 1px solid var(--linha);
+  background: rgba(12, 34, 80, 0.38);
+  color: var(--texto-2);
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color 0.35s var(--ease), background-color 0.35s var(--ease), color 0.35s var(--ease), transform 0.35s var(--ease);
+}
+.tr-aparelho svg {
+  color: var(--azul-claro);
+  transition: transform 0.5s var(--ease);
+}
+.tr-aparelho span {
+  color: var(--texto);
+}
+.tr-aparelho:hover {
+  border-color: var(--linha-2);
+  transform: translateY(-2px);
+}
+.tr-aparelho:hover svg {
+  transform: scale(1.08);
+}
+.tr-aparelho[aria-pressed='true'] {
+  border-color: var(--azul-claro);
+  background: linear-gradient(160deg, rgba(26, 107, 240, 0.35), rgba(12, 34, 80, 0.5));
+  box-shadow: 0 16px 40px -18px rgba(26, 107, 240, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+.tr-aparelho[aria-pressed='true'] svg {
+  color: var(--ciano);
+}
+.tr-aparelho[aria-pressed='true']::after {
+  content: '';
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ciano);
+  box-shadow: 0 0 12px var(--ciano);
+}
+
+.tr-sintomas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tr-sintoma {
+  padding: 11px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--linha-2);
+  background: rgba(12, 34, 80, 0.3);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  animation: chega 0.5s var(--ease) both;
+  transition: border-color 0.3s var(--ease), background-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+.tr-sintoma:hover {
+  border-color: var(--azul-claro);
+}
+.tr-sintoma[aria-pressed='true'] {
+  background: var(--texto);
+  border-color: var(--texto);
+  color: var(--marinho-1);
+}
+@keyframes chega {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+.tr-vazio {
+  margin: 0;
+  padding: 16px 18px;
+  border-radius: 14px;
+  border: 1px dashed var(--linha-2);
+  color: var(--texto-2);
+  font-size: 0.95rem;
+}
+.tr-passo:disabled legend {
+  opacity: 0.6;
+}
+.tr-campo {
+  width: 100%;
+  min-height: 54px;
+  padding: 0 18px;
+  border-radius: 14px;
+  border: 1px solid var(--linha-2);
+  background: rgba(4, 13, 34, 0.55);
+  color: var(--texto);
+  font: inherit;
+  font-size: 1rem;
+  transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.tr-campo::placeholder {
+  color: rgba(167, 182, 211, 0.7);
+}
+.tr-campo:focus {
+  outline: none;
+  border-color: var(--azul-claro);
+  box-shadow: 0 0 0 4px rgba(77, 148, 255, 0.18);
+}
+
+/* ---------- a ficha (um monitor da recepção) ---------- */
+.ficha-triagem {
+  position: sticky;
+  top: calc(var(--cabecalho) + 28px);
+  display: grid;
+  gap: 18px;
+  padding: 24px;
+  border-radius: 26px;
+  border: 1px solid rgba(92, 198, 242, 0.22);
+  background:
+    linear-gradient(rgba(77, 148, 255, 0.05) 1px, transparent 1px) 0 0 / 100% 22px,
+    linear-gradient(90deg, rgba(77, 148, 255, 0.05) 1px, transparent 1px) 0 0 / 22px 100%,
+    linear-gradient(160deg, rgba(12, 34, 80, 0.95), rgba(6, 20, 48, 0.98));
+  box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: border-color 0.6s var(--ease), box-shadow 0.6s var(--ease);
+}
+.ficha-triagem--pronta {
+  border-color: rgba(92, 198, 242, 0.55);
+  box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.8), 0 0 60px -20px rgba(92, 198, 242, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+.ft-topo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--linha);
+}
+.ft-topo .rotulo {
+  margin: 0;
+}
+.ft-loja {
+  margin-left: auto;
+  font-family: var(--f-mono);
+  font-size: 0.7rem;
+  color: var(--texto-2);
+}
+.ft-led {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--alerta);
+  box-shadow: 0 0 10px var(--alerta);
+  animation: led 1.4s ease-in-out infinite;
+}
+.ficha-triagem--pronta .ft-led {
+  background: var(--ciano);
+  box-shadow: 0 0 10px var(--ciano);
+}
+.ft-dados {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  font-family: var(--f-mono);
+  font-size: 0.86rem;
+}
+.ft-dados div {
+  display: grid;
+  grid-template-columns: 9.5em 1fr;
+  gap: 12px;
+  align-items: baseline;
+}
+.ft-dados dt {
+  color: var(--texto-2);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.7rem;
+}
+.ft-dados dd {
+  margin: 0;
+  color: var(--texto);
+  overflow-wrap: anywhere;
+}
+.ft-falta {
+  color: rgba(167, 182, 211, 0.55);
+}
+.ft-ecg {
+  width: 100%;
+  height: 70px;
+}
+.ft-sub {
+  margin: 0 0 8px;
+  font-family: var(--f-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ciano);
+}
+.ft-causas ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ft-causas li {
+  position: relative;
+  padding-left: 22px;
+  animation: chega 0.5s var(--ease) both;
+}
+.ft-causas li:nth-child(2) {
+  animation-delay: 0.06s;
+}
+.ft-causas li:nth-child(3) {
+  animation-delay: 0.12s;
+}
+.ft-causas li:nth-child(4) {
+  animation-delay: 0.18s;
+}
+.ft-causas li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 0.62em;
+  width: 10px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--azul-claro);
+}
+.ft-espera {
+  margin: 0;
+  color: var(--texto-2);
+}
+.ft-dica {
+  display: flex;
+  gap: 10px;
+  margin: 14px 0 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 181, 71, 0.1);
+  border: 1px solid rgba(255, 181, 71, 0.3);
+  font-size: 0.92rem;
+}
+.ft-dica svg {
+  flex: none;
+  margin-top: 3px;
+  color: var(--alerta);
+}
+.ft-nota {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--texto-2);
+}
+.ft-enviar {
+  width: 100%;
+  min-height: 58px;
+  font-size: 1.05rem;
+}
+.ft-rodape {
+  margin: -6px 0 0;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--texto-2);
+}
+
+@media (max-width: 900px) {
+  .triagem-grade {
+    grid-template-columns: 1fr;
+  }
+  .ficha-triagem {
+    position: relative;
+    top: 0;
+  }
+}
+@media (max-width: 520px) {
+  .tr-aparelhos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .tr-aparelho {
+    gap: 12px;
+    padding: 14px;
+  }
+  .ficha-triagem {
+    padding: 18px;
+  }
+  .ft-dados div {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+  .ft-loja {
+    display: none;
+  }
+}
+
+/* emenda com o pé do hero: o marinho do palco se dissolve no fundo da página */
+.historia + .triagem::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 220px;
+  background: linear-gradient(180deg, var(--marinho-0), rgba(4, 13, 34, 0));
+  pointer-events: none;
+}
+.historia + .triagem .triagem-grade {
+  z-index: 1;
+}

@@ -1,0 +1,216 @@
+.cabecalho {
+  position: fixed;
+  inset: 12px 0 auto;
+  z-index: 50;
+  padding: 0 clamp(10px, 2vw, 24px);
+  pointer-events: none;
+}
+.cab-capsula {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  max-width: 1280px;
+  height: 64px;
+  margin: 0 auto;
+  padding: 0 8px 0 22px;
+  border-radius: 999px;
+  pointer-events: auto;
+}
+/* o vidro fica num pseudo-elemento: com backdrop-filter no próprio cabeçalho,
+   a gaveta fixa do celular ficaria presa dentro dele */
+.cab-capsula::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: rgba(6, 20, 48, 0.86);
+  backdrop-filter: blur(16px) saturate(170%);
+  -webkit-backdrop-filter: blur(16px) saturate(170%);
+  box-shadow:
+    inset 0 1px 0.5px rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0.5px rgba(255, 255, 255, 0.06),
+    0 14px 34px -14px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(167, 182, 211, 0.14);
+}
+.cab-logo {
+  display: block;
+  flex: none;
+  line-height: 0;
+}
+.cab-logo svg {
+  width: 148px;
+  height: auto;
+  overflow: visible;
+}
+.logo-pulso {
+  stroke-width: 7;
+  stroke-dasharray: 0.16 1.3;
+  stroke-dashoffset: 0.16;
+  filter: drop-shadow(0 0 6px var(--ciano));
+  animation: logo-corre 3.2s linear infinite;
+  animation-delay: -1.2s;
+}
+@keyframes logo-corre {
+  from {
+    stroke-dashoffset: 0.16;
+  }
+  to {
+    stroke-dashoffset: -1.3;
+  }
+}
+
+.cab-nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.cab-nav ul {
+  display: flex;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.cab-nav a {
+  display: block;
+  padding: 9px 14px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--texto-2);
+  text-decoration: none;
+  transition: color 0.3s var(--ease), background-color 0.3s var(--ease);
+}
+.cab-nav a:hover,
+.cab-nav a:focus-visible {
+  color: var(--texto);
+  background: rgba(77, 148, 255, 0.12);
+}
+
+.cab-zap {
+  flex: none;
+  gap: 8px;
+}
+.cab-ecg {
+  width: 28px;
+  height: 12px;
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.95);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 60;
+  animation: cab-bate 2.4s var(--ease) infinite;
+}
+@keyframes cab-bate {
+  0% {
+    stroke-dashoffset: 60;
+  }
+  45%,
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.cab-menu {
+  display: none;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(77, 148, 255, 0.12);
+  cursor: pointer;
+}
+
+.cab-gaveta {
+  position: fixed;
+  inset: 88px 10px auto;
+  padding: 18px;
+  border-radius: 28px;
+  background: rgba(6, 20, 48, 0.96);
+  border: 1px solid var(--linha);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7);
+  pointer-events: auto;
+}
+.cab-gaveta[hidden] {
+  display: none;
+}
+.cab-gaveta ul {
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+}
+.cab-gaveta li {
+  border-bottom: 1px solid var(--linha);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+}
+.cabecalho--aberto .cab-gaveta li {
+  opacity: 1;
+  transform: none;
+}
+.cab-gaveta a:not(.botao) {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 16px 6px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.cab-gaveta .rotulo {
+  font-size: 0.7rem;
+}
+.cab-gaveta .botao {
+  width: 100%;
+}
+.cab-gaveta-info {
+  margin: 14px 4px 0;
+  font-size: 0.85rem;
+  color: var(--texto-2);
+}
+
+@media (max-width: 1060px) {
+  .cab-nav {
+    display: none;
+  }
+  .cab-capsula {
+    justify-content: space-between;
+  }
+  .cab-menu {
+    display: grid;
+  }
+  .cab-zap {
+    margin-left: auto;
+  }
+}
+@media (max-width: 520px) {
+  .cab-capsula {
+    height: 58px;
+    padding: 0 6px 0 16px;
+    gap: 8px;
+  }
+  .cab-logo svg {
+    width: 124px;
+  }
+  .cab-zap {
+    width: 46px;
+    min-height: 46px;
+    padding: 0;
+  }
+  .cab-zap-texto,
+  .cab-ecg {
+    display: none;
+  }
+  .cab-menu {
+    width: 46px;
+    height: 46px;
+  }
+  .cab-gaveta {
+    inset: 80px 8px auto;
+  }
+}

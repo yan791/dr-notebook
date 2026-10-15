@@ -1,0 +1,16 @@
+# dependências e builds
+node_modules/
+site/dist/
+site/dist-ssr/
+
+# clone do projeto anterior (é outro repositório) e saídas das ferramentas
+original/
+ferramentas/shots/
+ferramentas/og-arte.html
+
+# anotações internas do projeto (o repositório é público)
+review/
+PENDENCIAS.md
+
+*.log
+.DS_Store
