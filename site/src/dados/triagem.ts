@@ -117,6 +117,17 @@ export const aparelhos: readonly Aparelho[] = [
 
 export const aparelhoPorId = (id?: IdAparelho | null) => aparelhos.find((a) => a.id === id)
 
+// onde o defeito provável fica no aparelho 3D da recepção (zonas em src/tres)
+const ZONAS: Record<IdAparelho, Record<string, string>> = {
+  notebook: { 'nao-liga': 'energia', esquenta: 'ventoinha', tela: 'tela', 'nao-carrega': 'energia', lento: 'placa', quebrou: 'dobradica', molhou: 'teclado' },
+  mac: { 'nao-liga': 'energia', 'nao-carrega': 'energia', tela: 'tela', esquenta: 'ventoinha', travou: 'placa', molhou: 'teclado' },
+  pc: { 'sem-video': 'gpu', desliga: 'fonte', lento: 'cpu' },
+  celular: { tela: 'tela', bateria: 'bateria', 'nao-carrega': 'porta', molhou: 'placa', som: 'camera', botoes: 'botoes' },
+  videogame: { 'sem-imagem': 'hdmi', 'nao-liga': 'fonte', esquenta: 'ventilacao', retro: 'placa' },
+  drone: { queda: 'helice', camera: 'camera', conexao: 'antena', bateria: 'bateria' },
+}
+export const zonaDoSintoma = (aparelho?: IdAparelho | null, sintoma?: string | null) => (aparelho && sintoma ? (ZONAS[aparelho][sintoma] ?? 'geral') : null)
+
 export function mensagemDaTriagem(aparelho?: Aparelho, sintoma?: Sintoma, modelo?: string) {
   if (!aparelho) return 'Olá! Vim pelo site e quero um orçamento.'
   const linhas = ['Olá! Fiz a triagem no site da Dr. Notebook.', `Aparelho: ${aparelho.naMensagem}`]

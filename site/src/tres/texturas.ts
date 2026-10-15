@@ -12,9 +12,10 @@ export const PLACA = { largura: 2.74, profundidade: 1.04 } as const
 export const POS = {
   chipHeroi: { x: -0.42, z: 0.02, lado: 0.36 },
   cpu: { x: 0.42, z: 0.04, lado: 0.32 },
-  bios: { x: -0.98, z: 0.3, w: 0.11, d: 0.08 },
+  bios: { x: 0.06, z: -0.3, w: 0.11, d: 0.08 },
   ram: { x: -1.0, z: -0.2 },
   ventoinha: { x: 1.02, z: -0.08, r: 0.27 },
+  ssd: { x: 0.3, z: 0.38 },
 } as const
 
 function canvas(w: number, h: number) {
@@ -78,7 +79,14 @@ function gerarTrilhas(W: number, H: number): Trilha[] {
   return trilhas
 }
 
+// a placa é desenhada uma vez só e compartilhada (notebook do laboratório e PC gamer)
+let placaPronta: { mapa: THREE.CanvasTexture; brilho: THREE.CanvasTexture } | null = null
 export function texturaPlaca() {
+  if (!placaPronta) placaPronta = desenharPlaca()
+  return placaPronta
+}
+
+function desenharPlaca() {
   const W = 2048
   const H = Math.round((W * PLACA.profundidade) / PLACA.largura)
   const [c, g] = canvas(W, H)

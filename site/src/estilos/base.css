@@ -470,3 +470,127 @@ button {
     transform: translateX(-50%);
   }
 }
+
+/* ---------- marcador preso a um ponto do 3D (recepção e laboratório) ---------- */
+.marcador3d {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  will-change: transform;
+  --cor: var(--ciano);
+}
+.marcador3d--alerta {
+  --cor: var(--alerta);
+}
+.marcador3d-ponto {
+  position: absolute;
+  left: -5px;
+  top: -5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--cor);
+  box-shadow: 0 0 12px var(--cor);
+}
+.marcador3d-ponto::after {
+  content: '';
+  position: absolute;
+  inset: -7px;
+  border: 1px solid var(--cor);
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: anel 1.8s var(--ease) infinite;
+}
+.marcador3d-linha {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 64px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--cor), rgba(255, 255, 255, 0.15));
+  transform-origin: 0 0;
+  transform: rotate(-38deg) scaleX(var(--k, 1));
+}
+.marcador3d-chip {
+  position: absolute;
+  left: 46px;
+  top: -66px;
+  display: grid;
+  gap: 2px;
+  max-width: 250px;
+  padding: 9px 13px 10px;
+  font-family: var(--f-mono);
+  font-size: 0.74rem;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  color: var(--texto);
+  background: rgba(6, 20, 48, 0.72);
+  border: 1px solid color-mix(in srgb, var(--cor) 45%, transparent);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.marcador3d-chip b {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.64rem;
+  color: var(--texto-2);
+}
+.marcador3d-chip i {
+  font-style: normal;
+  color: var(--cor);
+  white-space: normal;
+  width: max-content;
+  max-width: 220px;
+}
+@keyframes anel {
+  from {
+    transform: scale(0.4);
+    opacity: 0.8;
+  }
+  to {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+@keyframes led {
+  50% {
+    opacity: 0.45;
+  }
+}
+@keyframes chega {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+@media (max-width: 900px) {
+  .marcador3d-chip {
+    left: 30px;
+    top: -54px;
+    padding: 7px 10px 8px;
+    font-size: 0.68rem;
+  }
+  .marcador3d-linha {
+    width: 44px;
+  }
+}
+/* etiqueta virada para a esquerda (ponto perto da borda direita) */
+.marcador3d--esquerda .marcador3d-linha {
+  transform: rotate(-142deg) scaleX(var(--k, 1));
+}
+.marcador3d--esquerda .marcador3d-chip {
+  left: auto;
+  right: 46px;
+  text-align: right;
+}
+.marcador3d--esquerda .marcador3d-chip i {
+  justify-self: end;
+}
+@media (max-width: 900px) {
+  .marcador3d--esquerda .marcador3d-chip {
+    right: 30px;
+  }
+}

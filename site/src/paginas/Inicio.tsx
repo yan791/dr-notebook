@@ -1,5 +1,4 @@
-import { Historia } from '../secoes/Historia'
-import { Triagem } from '../secoes/Triagem'
+import { Recepcao } from '../secoes/Recepcao'
 import { ComoFunciona } from '../secoes/ComoFunciona'
 import { Especialidades } from '../secoes/Especialidades'
 import { Laboratorio } from '../secoes/Laboratorio'
@@ -11,15 +10,15 @@ import { ChamadaFinal, Marcas } from '../componentes/Comuns'
 import '../secoes/secoes.css'
 
 /*
- * A página é o atendimento: recepção e diagnóstico (hero 3D), triagem (o momento
- * interativo que vira mensagem), como funciona, especialidades, o laboratório, casos,
- * avaliações, dúvidas, onde estamos e a chamada final. Tudo afunila para o WhatsApp.
+ * A página é o atendimento: a recepção no topo (a triagem, com o aparelho 3D apontando o
+ * defeito provável), como funciona, especialidades, o laboratório (o chip em 3D), casos,
+ * avaliações, dúvidas, onde estamos e a chamada final. Tudo afunila para o WhatsApp e
+ * nenhuma seção prende a rolagem.
  */
 export function Inicio() {
   return (
     <>
-      <Historia />
-      <Triagem />
+      <Recepcao />
       <Marcas />
       <ComoFunciona />
       <Especialidades />
